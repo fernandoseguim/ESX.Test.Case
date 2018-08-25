@@ -27,15 +27,18 @@ CREATE TABLE Assets(
     AssetID UNIQUEIDENTIFIER NOT NULL,
 	Name VARCHAR(50) NOT NULL,
     Description VARCHAR(16) NULL,
-    Register VARCHAR(8) NULL,
+    Registry VARCHAR(8) NULL,
     BrandID UNIQUEIDENTIFIER NOT NULL,
     PRIMARY KEY (AssetID),
     FOREIGN KEY (BrandID) REFERENCES Brands(BrandID)
 );
 GO
 
+
 INSERT INTO Users (UserID, Name, Email, [Password]) VALUES (NEWID(), 'Fernando Seguim', 'fernando.seguim@gmail.com', 'TestCase@23');
 INSERT INTO Brands (BrandID, Name) VALUES (NEWID(), 'Seguim IT');
-INSERT INTO Assets (AssetID, Name, BrandID) VALUES (NEWID(), 'Notebook', (select BrandID from Brands WHERE Name = 'Seguim IT'))
+INSERT INTO Assets (AssetID, Name, BrandID) VALUES (NEWID(), 'Notebook', (select BrandID from Brands WHERE Name = 'Seguim IT'));
+
+SELECT * FROM Assets
 
 
