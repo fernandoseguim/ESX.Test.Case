@@ -19,7 +19,6 @@ GO
 CREATE TABLE Brands(
     BrandID UNIQUEIDENTIFIER NOT NULL,
 	Name VARCHAR(20) NOT NULL UNIQUE,
-    Description VARCHAR(16),
     PRIMARY KEY (BrandID)
 );
 GO
@@ -36,8 +35,8 @@ CREATE TABLE Assets(
 GO
 
 
-INSERT INTO Users (UserID, Name, Email, PasswordHash, Salt) VALUES (NEWID(), 'Fernando Seguim', 'fernando.seguim@gmail.com', '1a88feb0c03d17df329d10ac1d2481c5e53b151a84969ee4c5a3fdb2bdb0c30f566dfd889bc95f9956b46bf001b0966ac6c23448917fbc9405f598d4804d0ab1', '768ebcc6-d559-4c44-babf-1034f78f3c69');
-INSERT INTO Brands (BrandID, Name) VALUES (NEWID(), 'Seguim IT');
-INSERT INTO Assets (AssetID, Name, BrandID) VALUES (NEWID(), 'Notebook', (select BrandID from Brands WHERE Name = 'Seguim IT'));
+INSERT INTO User (UserID, Name, Email, PasswordHash, Salt) VALUES (NEWID(), 'Fernando Seguim', 'fernando.seguim@gmail.com', '1a88feb0c03d17df329d10ac1d2481c5e53b151a84969ee4c5a3fdb2bdb0c30f566dfd889bc95f9956b46bf001b0966ac6c23448917fbc9405f598d4804d0ab1', '768ebcc6-d559-4c44-babf-1034f78f3c69');
+INSERT INTO Brand (BrandID, Name) VALUES (NEWID(), 'Seguim IT');
+INSERT INTO Asset (AssetID, Name, BrandID) VALUES (NEWID(), 'Notebook', (select BrandID from Brands WHERE Name = 'Seguim IT'));
 
 
