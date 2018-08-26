@@ -25,7 +25,35 @@ namespace ESX.Test.Case.Tests.Domain.ValueObjects
 		{
 			var value = this.MockString(8);
 			var password = new Password(value);
-			Assert.AreNotEqual(value, password.MaskedValue);
+			Assert.AreNotEqual(value, password.HashValue);
+		}
+
+		[TestMethod]
+		[Description("Given that compared hash value is the different expected hash value," +
+		             "when compare hash values, " +
+		             "then should return false")]
+		public void Should_return_false_when_comparing_different_hash_values()
+		{
+			var expectedValue = this.MockString(8);
+			var comparedValue = this.MockString(9);
+			var expectedPassword = new Password(expectedValue);
+			var comparedPassword = new Password(comparedValue);
+
+			Assert.IsFalse(Password.CompareHashValues(expectedPassword.HashValue, comparedPassword.HashValue));
+		}
+
+		[TestMethod]
+		[Description("Given that compared hash value is the same expected hash value," +
+		             "when compare hash values, " +
+		             "then should return true")]
+		public void Should_return_true_when_comparing_equal_hash_values()
+		{
+			var value = this.MockString(8);
+			var expectedPassword = new Password(value);
+			var salt = expectedPassword.Salt;
+			var comparedPassword = new Password(value, salt);
+			
+			Assert.IsTrue(Password.CompareHashValues(expectedPassword.HashValue, comparedPassword.HashValue));
 		}
 	}
 }
