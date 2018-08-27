@@ -1,6 +1,7 @@
 ﻿using ESX.Test.Case.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 
 namespace ESX.Test.Case.Tests.Domain.Entities
 {
@@ -50,17 +51,32 @@ namespace ESX.Test.Case.Tests.Domain.Entities
 		}
 
 		[TestMethod]
-		[Description("Given that I add a asset description, " +
-		             "when I get the description," +
-		             "then should return the same description added")]
-		public void Should_return_the_same_description_added_when_I_get_the_description()
+		[Description("Given that description length is lower or equal to max allowed size, " +
+		             "when trying to add description to asset," +
+		             "then should add description")]
+		public void Should_add_description_when_description_length_is_lower_or_equal_to_the_maximum_allowed_size()
 		{
 			var asset = new Asset(base.MockString(), this.brand);
 			var description = this.MockString(10);
 
 			asset.AddDescription(description);
 
-			Assert.IsNotNull(asset.Description);
+			Assert.AreEqual(description, asset.Description);
+		}
+
+		[TestMethod]
+		[Description("Given that description length is greater than max allowed size, " +
+		             "when trying to add description to asset, " +
+		             "then should return a notification")]
+		public void Should_return_a_notification_when_add_description_with_length_greater_than_the_maximum_allowed_size()
+		{
+			var asset = new Asset(base.MockString(), this.brand);
+			var description = this.MockString(Asset.MAXIMUM_DESCRIPTION_SIZE + 1);
+
+			asset.AddDescription(description);
+
+			Assert.IsFalse(asset.Valid);
+			Assert.IsTrue(asset.Notifications.ToList().Any(n => n.Property.Contains(nameof(asset.Description))));
 		}
 	}
 }

@@ -6,21 +6,22 @@ using System.Text.RegularExpressions;
 
 namespace ESX.Test.Case.Domain.ValueObjects
 {
-	public class Password
+	public class SecurityPassword
 	{
+		public const int MINIMUM_PASSWORD_SIZE = 8;
 		private const string PASSWORD_PATTERN = @"^\w{8,}$";
-
+		
 		private readonly string value;
 
-		public Password(string value) : this (value, null) { }
+		public SecurityPassword(string value) : this (value, null) { }
 
-		public Password(string value, string salt)
+		public SecurityPassword(string value, string salt)
 		{
 			this.value = value;
 			this.Salt = salt ?? Guid.NewGuid().ToString();
 
 			if (Regex.IsMatch(this.value ?? "", PASSWORD_PATTERN) == false)
-				throw new ArgumentException($"The password value address is invalid");
+				throw new ArgumentException($"The password value is invalid");
 		}
 
 		public string HashValue => CreateHmacSha512(this.value, this.Salt);

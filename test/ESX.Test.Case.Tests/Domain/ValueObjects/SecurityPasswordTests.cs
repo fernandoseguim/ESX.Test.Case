@@ -1,12 +1,11 @@
 ﻿using ESX.Test.Case.Domain.ValueObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using ESX.Test.Case.Domain.Entities;
 
 namespace ESX.Test.Case.Tests.Domain.ValueObjects
 {
 	[TestClass]
-	public class PasswordTests : UnitTestBase
+	public class SecurityPasswordTests : UnitTestBase
 	{
 		[TestMethod]
 		[Description("Given that password value is invalid, " +
@@ -14,7 +13,7 @@ namespace ESX.Test.Case.Tests.Domain.ValueObjects
 		             "then should throw argument exception")]
 		public void Should_throw_argument_exception_when_trying_to_create_a_new_password_with_invalid_value()
 		{
-			Assert.ThrowsException<ArgumentException>(() => new Password(this.MockString(5)));
+			Assert.ThrowsException<ArgumentException>(() => new SecurityPassword(this.MockString(5)));
 		}
 
 		[TestMethod]
@@ -24,7 +23,7 @@ namespace ESX.Test.Case.Tests.Domain.ValueObjects
 		public void Should_mask_value_when_creating_a_new_password_with_valid_value()
 		{
 			var value = this.MockString(8);
-			var password = new Password(value);
+			var password = new SecurityPassword(value);
 			Assert.AreNotEqual(value, password.HashValue);
 		}
 
@@ -36,10 +35,10 @@ namespace ESX.Test.Case.Tests.Domain.ValueObjects
 		{
 			var expectedValue = this.MockString(8);
 			var comparedValue = this.MockString(9);
-			var expectedPassword = new Password(expectedValue);
-			var comparedPassword = new Password(comparedValue);
+			var expectedPassword = new SecurityPassword(expectedValue);
+			var comparedPassword = new SecurityPassword(comparedValue);
 
-			Assert.IsFalse(Password.CompareHashValues(expectedPassword.HashValue, comparedPassword.HashValue));
+			Assert.IsFalse(SecurityPassword.CompareHashValues(expectedPassword.HashValue, comparedPassword.HashValue));
 		}
 
 		[TestMethod]
@@ -49,11 +48,11 @@ namespace ESX.Test.Case.Tests.Domain.ValueObjects
 		public void Should_return_true_when_comparing_equal_hash_values()
 		{
 			var value = this.MockString(8);
-			var expectedPassword = new Password(value);
+			var expectedPassword = new SecurityPassword(value);
 			var salt = expectedPassword.Salt;
-			var comparedPassword = new Password(value, salt);
+			var comparedPassword = new SecurityPassword(value, salt);
 			
-			Assert.IsTrue(Password.CompareHashValues(expectedPassword.HashValue, comparedPassword.HashValue));
+			Assert.IsTrue(SecurityPassword.CompareHashValues(expectedPassword.HashValue, comparedPassword.HashValue));
 		}
 	}
 }

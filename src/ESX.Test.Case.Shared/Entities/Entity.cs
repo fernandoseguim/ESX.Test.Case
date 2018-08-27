@@ -1,9 +1,9 @@
 ﻿using System;
 using Flunt.Notifications;
 
-namespace ESX.Test.Case.Shared
+namespace ESX.Test.Case.Shared.Entities
 {
-	public abstract class Entity
+	public abstract class Entity : Notifiable
 	{
 		protected Entity() => this.Id = Guid.NewGuid();
 
