@@ -8,7 +8,7 @@ namespace ESX.Test.Case.Tests.Domain.ValueObjects
 	public class EmailTests : UnitTestBase
 	{
 		[TestMethod]
-		[Description("Given that e-mail address is invalid, " +
+		[Description("Given that email address is invalid, " +
 		             "when trying to create a new email, " +
 		             "then should throw argument exception")]
 		public void Should_throw_argument_exception_when_trying_to_create_a_new_email_with_invalid_email_address()
@@ -17,9 +17,9 @@ namespace ESX.Test.Case.Tests.Domain.ValueObjects
 		}
 
 		[TestMethod]
-		[Description("Given that e-mail address is valid, " +
+		[Description("Given that email address is valid, " +
 		             "when converting email to string, " +
-		             "then should return the e-mail address")]
+		             "then should return the Email address")]
 		public void Should_return_the_email_address_when_converting_email_to_string()
 		{
 			const string EMAIL_ADDRESS = "fernando.seguim@gmail.com";

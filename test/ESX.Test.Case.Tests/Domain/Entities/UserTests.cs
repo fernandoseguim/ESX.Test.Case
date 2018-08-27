@@ -29,7 +29,7 @@ namespace ESX.Test.Case.Tests.Domain.Entities
 		}
 
 		[TestMethod]
-		[Description("Given that e-mail is null, " +
+		[Description("Given that email is null, " +
 		             "when trying to create a new user, " +
 		             "then should throw argument null exception")]
 		public void Should_throw_argument_null_exception_when_trying_to_create_a_new_user_with_null_email()
@@ -38,7 +38,7 @@ namespace ESX.Test.Case.Tests.Domain.Entities
 		}
 
 		[TestMethod]
-		[Description("Given that e-mail is null, " +
+		[Description("Given that email is null, " +
 		             "when trying to create a new user, " +
 		             "then should throw argument null exception")]
 		public void Should_throw_argument_null_exception_when_trying_to_create_a_new_user_with_null_password()

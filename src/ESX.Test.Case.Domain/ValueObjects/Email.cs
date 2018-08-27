@@ -12,7 +12,7 @@ namespace ESX.Test.Case.Domain.ValueObjects
 			this.Address = address;
 			
 			if (Regex.IsMatch(this.Address ?? "", EMAIL_PATTERN) == false)
-				throw new ArgumentException($"The e-mail address is invalid");
+				throw new ArgumentException($"The email address is invalid");
 		}
 
 		public string Address { get; }
