@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace ESX.Test.Case.Api
 {
@@ -9,7 +10,7 @@ namespace ESX.Test.Case.Api
 	{
 		public Startup(IConfiguration configuration)
 		{
-			Configuration = configuration;
+			this.Configuration = configuration;
 		}
 
 		public IConfiguration Configuration { get; }
@@ -17,7 +18,12 @@ namespace ESX.Test.Case.Api
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddMvc();
+			services.AddIOCConteiner(this.Configuration);
+			
+			services.AddMvc().AddJsonOptions(options 
+				=> options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore);
+
+			services.AddGzipCompression();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -28,6 +34,7 @@ namespace ESX.Test.Case.Api
 				app.UseDeveloperExceptionPage();
 			}
 
+			app.UseResponseCompression();
 			app.UseMvc();
 		}
 	}
