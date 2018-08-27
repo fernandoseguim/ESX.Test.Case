@@ -1,28 +1,28 @@
 ﻿using System;
 using Dapper;
 using ESX.Test.Case.Domain.Entities;
+using ESX.Test.Case.Domain.ValueObjects;
 
 namespace ESX.Test.Case.Infra.Builders
 {
 	public partial class UserQueryBuilder
 	{
-		private readonly User user;
 		private readonly DynamicParameters parameters;
 		private string query = "";
 
-		public UserQueryBuilder(User user)
+		public UserQueryBuilder()
 		{
-			this.user = user ?? throw new ArgumentNullException(nameof(user));
 			this.parameters = new DynamicParameters();
+		}
+
+		public UserQueryBuilder CheckEmail(Email email)
+		{
+			this.query = @"SELECT 1 FROM Users WHERE Email = @Email";
+			this.parameters.Add("Email", email.ToString());
+			return this;
 		}
 
 		public (string, DynamicParameters) Build() =>
 			(this.query, this.parameters);
-
-		private void FormatQuery(string queryItem)
-		{
-			if (this.query != "") { this.query = $"{this.query} AND"; }
-			this.query = $"{this.query} {queryItem}";
-		}
 	}
 }
