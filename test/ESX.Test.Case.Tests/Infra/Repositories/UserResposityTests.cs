@@ -38,5 +38,31 @@ namespace ESX.Test.Case.Tests.Infra.Repositories
 					Arg.Is<string>(query => query.Contains("INSERT INTO Users (UserID, Name, Email, PasswordHash, Salt)")), 
 					Arg.Any<object>());
 		}
+
+		[TestMethod]
+		[Description("Given that I check if a emails exists in the database, " +
+		             "when the email exists, " +
+		             "then should return true")]
+		public void Should_return_true_when_email_exists_in_database()
+		{
+			var email = new Email("teste@gmail.com");
+			
+			var result = this.repository.CheckEmail(email);
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		[Description("Given that I check if a emails exists in the database, " +
+		             "when the email not exists, " +
+		             "then should return false")]
+		public void Should_return_false_when_email_exists_in_database()
+		{
+			var email = new Email($"{this.MockString()}@teste.com");
+
+			var result = this.repository.CheckEmail(email);
+
+			Assert.IsFalse(result);
+		}
 	}
 }

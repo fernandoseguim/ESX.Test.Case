@@ -1,4 +1,6 @@
-﻿using ESX.Test.Case.Infra;
+﻿using System;
+using System.Linq;
+using ESX.Test.Case.Infra;
 using NSubstitute;
 
 namespace ESX.Test.Case.Tests.Infra.Repositories
@@ -15,5 +17,13 @@ namespace ESX.Test.Case.Tests.Infra.Repositories
 		}
 
 		public IDatabaseContext Context { get; }
+
+		protected string MockString(int length = 10)
+		{
+			var random = new Random();
+			const string CHARS = "0123456789";
+			return new string(Enumerable.Repeat(CHARS, length)
+				.Select(s => s[random.Next(s.Length)]).ToArray());
+		}
 	}
 }
