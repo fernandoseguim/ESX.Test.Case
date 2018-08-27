@@ -20,7 +20,7 @@ namespace ESX.Test.Case.Domain.Commands.Request
 					$"Firstname does not be lower than {Name.MINIMUM_FIRST_NAME_SIZE} characters")
 				.HasMinLength(this.LastName, Name.MINIMUM_LAST_NAME_SIZE, nameof(this.LastName),
 					$"Lastname does not be lower than {Name.MINIMUM_LAST_NAME_SIZE} characters")
-				.IsEmail(this.Email, nameof(this.Email), "The e-mail address is invalid")
+				.IsEmail(this.Email, nameof(this.Email), "The Email address is invalid")
 				.HasMinLength(this.Password, SecurityPassword.MINIMUM_PASSWORD_SIZE, nameof(this.Password),
 					$"The password does not be lower than {SecurityPassword.MINIMUM_PASSWORD_SIZE} characters")
 			);
