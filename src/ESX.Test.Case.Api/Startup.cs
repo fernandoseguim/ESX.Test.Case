@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Elmah.Io.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +26,15 @@ namespace ESX.Test.Case.Api
 				=> options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore);
 
 			services.AddGzipCompression();
+
+			services.AddElmahIo(options =>
+			{
+				options.ApiKey = "c198d9a3404a49acbccff911ec680026";
+				options.LogId = new Guid("989d44e2-dfbe-4b19-81ce-84ec689916f9");
+			});
+
+			services.AddApiVersioning();
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,7 +44,8 @@ namespace ESX.Test.Case.Api
 			{
 				app.UseDeveloperExceptionPage();
 			}
-
+			
+			app.UseElmahIo();
 			app.UseResponseCompression();
 			app.UseMvc();
 		}
