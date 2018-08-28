@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System;
+using Dapper;
 using ESX.Test.Case.Domain.Entities;
 using ESX.Test.Case.Domain.Repositories;
 using ESX.Test.Case.Domain.ValueObjects;
@@ -20,8 +21,8 @@ namespace ESX.Test.Case.Tests.Infra.Repositories
 
 		[TestMethod]
 		[Description("Given that I has a new user, " +
-					 "when trying to save a new user in the database, " +
-					 "then should save new user in the users table")]
+		             "when trying to save a new user in the database, " +
+		             "then should save new user in the users table")]
 		public void Should_save_the_new_user_in_the_users_table()
 		{
 			var name = new Name("Fernando", "Seguim");
@@ -63,6 +64,35 @@ namespace ESX.Test.Case.Tests.Infra.Repositories
 			var result = this.repository.CheckEmail(email);
 
 			Assert.IsFalse(result);
+		}
+
+		[TestMethod]
+		[Description("Given that I trying delete the user, " +
+		             "when user identifier not exist on database, " +
+		             "then should return false")]
+		public void Should_return_false_when_not_found_userd_by_id_to_delete()
+		{
+			var result = this.repository.Delete(Guid.NewGuid());
+
+			Assert.IsFalse(result);
+		}
+
+		[TestMethod]
+		[Description("Given that I trying delete the user, " +
+		             "when user identifier exist on database, " +
+		             "then should return true")]
+		public void Should_return_true_when_delete_user_from_database()
+		{
+			var name = new Name(this.MockString(), this.MockString());
+			var email = new Email($"{this.MockString()}@gmail.com");
+			var password = new SecurityPassword(this.MockString());
+			var user = new User(name, email, password);
+
+			this.repository.Save(user);
+
+			var result = this.repository.Delete(user.Id);
+
+			Assert.IsTrue(result);
 		}
 	}
 }
