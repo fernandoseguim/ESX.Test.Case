@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace ESX.Test.Case.Domain.Commands.Response
 {
-	public class UnsuccesfulCommandResult : ICommandResult
+	public class UnsuccessfulCommandResult : ICommandResult
 	{
-		public UnsuccesfulCommandResult(StatusCodeResult statusCode, string message, object data)
+		public UnsuccessfulCommandResult(StatusCodeResult statusCode, string message, object data)
 		{
 			this.StatusCode = statusCode;
 			this.Success = false;
