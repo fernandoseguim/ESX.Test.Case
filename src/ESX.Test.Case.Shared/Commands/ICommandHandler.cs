@@ -2,6 +2,7 @@
 {
 	public interface ICommandHandler<in TCommand> where TCommand : BaseCommand
 	{
-		ICommandResult Handle(TCommand command);
+		ICommandResult Create(TCommand command);
+		ICommandResult Delete(string id);
 	}
 }

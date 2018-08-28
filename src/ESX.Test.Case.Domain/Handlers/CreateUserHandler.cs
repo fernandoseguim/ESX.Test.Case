@@ -9,13 +9,13 @@ using ESX.Test.Case.Domain.ValueObjects;
 
 namespace ESX.Test.Case.Domain.Handlers
 {
-	public class CreateUserHandler : Notifiable, ICommandHandler<UserCommand>
+	public partial class UserHandler : Notifiable, ICommandHandler<UserCommand>
 	{
 		private readonly IUserRepository repository;
 
-		public CreateUserHandler(IUserRepository repository) => this.repository = repository;
+		public UserHandler(IUserRepository repository) => this.repository = repository;
 
-		public ICommandResult Handle(UserCommand command)
+		public ICommandResult Create(UserCommand command)
 		{
 			try
 			{
@@ -33,6 +33,7 @@ namespace ESX.Test.Case.Domain.Handlers
 
 					return new SuccessfulCommandResult("User was saved with successful", new
 					{
+						UserId = user.Id,
 						Name = user.Name.ToString(),
 						Email = user.Email.ToString()
 					});

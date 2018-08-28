@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Dapper;
 using ESX.Test.Case.Domain.Entities;
 using ESX.Test.Case.Domain.Repositories;
@@ -28,6 +29,12 @@ namespace ESX.Test.Case.Infra.Repositories
 			return result;
 		}
 
-		public bool CheckPassword(SecurityPassword password) => throw new System.NotImplementedException();
+		public bool Delete(Guid userId)
+		{
+			var (query, parameters) = new UserQueryBuilder().DeleteUser(userId).Build();
+
+			var result = this.context.Connection.Execute(query, parameters);
+			return Convert.ToBoolean(result);
+		}
 	}
 }

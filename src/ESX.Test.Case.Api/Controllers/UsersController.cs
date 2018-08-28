@@ -17,8 +17,16 @@ namespace ESX.Test.Case.Api.Controllers
 		[HttpPost]  
 		public IActionResult Post([FromBody] UserCommand userCommand)
 		{
-			var result = this.useCommandHandler.Handle(userCommand);
+			var result = this.useCommandHandler.Create(userCommand);
 			
+			return this.StatusCode((int)result.StatusCode, result);
+		}
+
+		[HttpDelete("{id}")]
+		public IActionResult Delete([FromRoute] string id)
+		{
+			var result = this.useCommandHandler.Delete(id);
+
 			return this.StatusCode((int)result.StatusCode, result);
 		}
 	}
