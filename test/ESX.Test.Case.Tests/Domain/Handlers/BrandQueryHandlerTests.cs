@@ -47,7 +47,7 @@ namespace ESX.Test.Case.Tests.Domain.Handlers
 		public void Should_return_a_success_when_request_brand_by_id_and_brand_exists()
 		{
 			var result = this.brandQueryHandler.GetById(Guid.NewGuid().ToString());
-			Assert.AreEqual(StatusCodeResult.Success, result.Success);
+			Assert.AreEqual(StatusCodeResult.Success, result.StatusCode);
 		}
 
 		[TestMethod]
