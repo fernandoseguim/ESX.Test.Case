@@ -5,6 +5,7 @@ using Dapper;
 using ESX.Test.Case.Domain.Commands.Response;
 using ESX.Test.Case.Domain.Entities;
 using ESX.Test.Case.Domain.Queries;
+using ESX.Test.Case.Domain.Queries.Response;
 using ESX.Test.Case.Domain.Repositories;
 using ESX.Test.Case.Domain.ValueObjects;
 using ESX.Test.Case.Infra.Builders;

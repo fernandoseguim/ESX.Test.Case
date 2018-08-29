@@ -90,15 +90,41 @@ namespace ESX.Test.Case.Tests.Infra.Repositories
 			Assert.IsTrue(result);
 		}
 
-		//[TestMethod]
-		//[Description("Given that I trying delete the brand, " +
-		//			 "when brand identifier exist on database, " +
-		//			 "then should return true")]
-		//public void Should_return_all_users_from_database()
-		//{
-		//	var result = this.repository.GetAll();
+		[TestMethod]
+		[Description("Given that exists brands in database, " +
+					 "when I trying get all brands, " +
+					 "then should return a list of brands")]
+		public void Should_return_all_brands_from_database()
+		{
+			var result = this.repository.GetAll();
 
-		//	Assert.IsTrue(result.ToList().Any());
-		//}
+			Assert.IsTrue(result.ToList().Any());
+		}
+
+		[TestMethod]
+		[Description("Given I trying get brand by identifier, " +
+		             "when exist brand in database, " +
+		             "then should return brand")]
+		public void Should_return_brand_when_get_by_id_and_exist_brand_in_database()
+		{
+			var brand = new Brand(MockString());
+
+			this.repository.Save(brand);
+			
+			var result = this.repository.GetById(brand.Id);
+
+			Assert.AreEqual(result.Name, brand.Name);
+		}
+
+		[TestMethod]
+		[Description("Given I trying get brand by identifier, " +
+		             "when not exist brand in database, " +
+		             "then should return null")]
+		public void Should_return_null_when_get_by_id_and_not_exist_brand_in_database()
+		{
+			var result = this.repository.GetById(new Guid());
+
+			Assert.IsNull(result);
+		}
 	}
 }

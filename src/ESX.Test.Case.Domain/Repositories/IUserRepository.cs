@@ -2,6 +2,7 @@
 using ESX.Test.Case.Domain.Queries;
 using ESX.Test.Case.Domain.ValueObjects;
 using System.Collections.Generic;
+using ESX.Test.Case.Domain.Queries.Response;
 
 namespace ESX.Test.Case.Domain.Repositories
 {

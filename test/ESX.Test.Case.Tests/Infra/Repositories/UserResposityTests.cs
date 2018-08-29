@@ -97,9 +97,9 @@ namespace ESX.Test.Case.Tests.Infra.Repositories
 		}
 
 		[TestMethod]
-		[Description("Given that I trying delete the user, " +
-		             "when user identifier exist on database, " +
-		             "then should return true")]
+		[Description("Given that exists users in database, " +
+					 "when I trying get all users, " +
+					 "then should return a list of users")]
 		public void Should_return_all_users_from_database()
 		{
 			var result = this.repository.GetAll();

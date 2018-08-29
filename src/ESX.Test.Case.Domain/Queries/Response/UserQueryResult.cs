@@ -1,4 +1,4 @@
-﻿namespace ESX.Test.Case.Domain.Queries
+﻿namespace ESX.Test.Case.Domain.Queries.Response
 {
 	public class UserQueryResult
     {

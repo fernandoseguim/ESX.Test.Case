@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dapper;
 using ESX.Test.Case.Domain.Entities;
+using ESX.Test.Case.Domain.Queries.Response;
 using ESX.Test.Case.Domain.Repositories;
 using ESX.Test.Case.Domain.ValueObjects;
 using ESX.Test.Case.Infra.Builders;
@@ -12,6 +14,24 @@ namespace ESX.Test.Case.Infra.Repositories
 	{
 		private readonly IDatabaseContext context;
 		public BrandRepository(IDatabaseContext context) => this.context = context;
+
+		public IEnumerable<BrandQueryResult> GetAll()
+		{
+			var (query, parameters) = new BrandQueryBuilder().GetAll().Build();
+
+			var brands = this.context.Connection.Query<BrandQueryResult>(query);
+
+			return brands;
+		}
+
+		public BrandQueryResult GetById(Guid brandId)
+		{
+			var (query, parameters) = new BrandQueryBuilder().GetById(brandId).Build();
+
+			var brand = this.context.Connection.QueryFirstOrDefault<BrandQueryResult>(query, parameters);
+
+			return brand;
+		}
 
 		public bool CheckBrand(string name)
 		{
@@ -28,9 +48,9 @@ namespace ESX.Test.Case.Infra.Repositories
 			this.context.Connection.Execute(query, parameters);
 		}
 
-		public bool Delete(Guid brandid)
+		public bool Delete(Guid brandId)
 		{
-			var (query, parameters) = new BrandQueryBuilder().DeleteBrand(brandid).Build();
+			var (query, parameters) = new BrandQueryBuilder().DeleteBrand(brandId).Build();
 
 			var result = this.context.Connection.Execute(query, parameters);
 			return Convert.ToBoolean(result);
