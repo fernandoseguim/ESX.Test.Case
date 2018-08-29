@@ -1,7 +1,6 @@
-﻿using System;
-using ESX.Test.Case.Domain.Commands.Response;
-using ESX.Test.Case.Shared.Commands;
+﻿using ESX.Test.Case.Shared.Commands;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace ESX.Test.Case.Tests.Domain.Handlers
 {
@@ -13,7 +12,7 @@ namespace ESX.Test.Case.Tests.Domain.Handlers
 		             "then should contains bad request status code in command result")]
 		public void Should_contains_bad_request_status_code_in_command_result_when_user_identifier_is_invalid()
 		{
-			var commandResult = this.createUserHandler.Delete(this.MockString());
+			var commandResult = this.userHandler.Delete(this.MockString());
 
 			Assert.AreEqual(StatusCodeResult.BadRequest, commandResult.StatusCode);
 		}
@@ -24,7 +23,7 @@ namespace ESX.Test.Case.Tests.Domain.Handlers
 		             "then should contains bad request status code in command result")]
 		public void Should_contains_bad_request_status_code_in_command_result_when_user_identifier_not_found_on_database()
 		{
-			var commandResult = this.createUserHandler.Delete("07F28933-A0BE-4C18-847A-346A92497362");
+			var commandResult = this.userHandler.Delete("07F28933-A0BE-4C18-847A-346A92497362");
 
 			Assert.AreEqual(StatusCodeResult.NotFound, commandResult.StatusCode);
 		}
@@ -35,7 +34,7 @@ namespace ESX.Test.Case.Tests.Domain.Handlers
 		             "then should contains success status code in command result")]
 		public void Should_contains_success_status_code_in_command_result_when_user_identifier_not_found_on_database()
 		{
-			var commandResult = this.createUserHandler.Delete(Guid.NewGuid().ToString());
+			var commandResult = this.userHandler.Delete(Guid.NewGuid().ToString());
 
 			Assert.AreEqual(StatusCodeResult.Success, commandResult.StatusCode);
 		}

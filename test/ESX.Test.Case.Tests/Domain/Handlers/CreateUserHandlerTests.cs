@@ -18,14 +18,14 @@ namespace ESX.Test.Case.Tests.Domain.Handlers
 	{
 		private const string NOT_FOUND_USER_ID = "07F28933-A0BE-4C18-847A-346A92497362";
 		private readonly IUserRepository repository;
-		private readonly ICommandHandler<UserCommand> createUserHandler;
+		private readonly ICommandHandler<UserCommand> userHandler;
 		private readonly UserCommand userCommand;
 
 		public UserHandlerTests()
 		{
 			this.userCommand = new UserCommand();
 			this.repository = Substitute.For<IUserRepository>();
-			this.createUserHandler = new UserHandler(this.repository);
+			this.userHandler = new UserHandler(this.repository);
 		}
 
 		[TestInitialize]
@@ -44,14 +44,14 @@ namespace ESX.Test.Case.Tests.Domain.Handlers
 
 		[TestMethod]
 		[Description("Given that I trying create user, " +
-		             "when check if email already exists and email exists" +
-		             "then should contains bad request status code in command result")]
-		public void Should_contains_bad_request_status_code_in_command_result_when_email_already_exists_in_database()
+		             "when email already exists" +
+					 "then should contains conflictt status code in command result")]
+		public void Should_contains_conflict_status_code_in_command_result_when_email_already_exists_in_database()
 		{
 			this.userCommand.Email = $"teste@gmail.com";
-			var commandResult = this.createUserHandler.Create(this.userCommand);
+			var commandResult = this.userHandler.Create(this.userCommand);
 
-			Assert.AreEqual(StatusCodeResult.BadRequest, commandResult.StatusCode);
+			Assert.AreEqual(StatusCodeResult.Conflict, commandResult.StatusCode);
 		}
 
 		[TestMethod]
@@ -61,7 +61,7 @@ namespace ESX.Test.Case.Tests.Domain.Handlers
 		public void Should_contains_notification_in_command_result_when_email_already_exists_in_database()
 		{
 			this.userCommand.Email = $"teste@gmail.com";
-			var commandResult = this.createUserHandler.Create(this.userCommand);
+			var commandResult = this.userHandler.Create(this.userCommand);
 
 			var notifications = (List<Notification>) commandResult.Data;
 
@@ -74,7 +74,7 @@ namespace ESX.Test.Case.Tests.Domain.Handlers
 		             "then should contains noticiations in command result")]
 		public void Should_contains_notifications_command_result_when_user_comand_is_invalid()
 		{
-			var commandResult = this.createUserHandler.Create(new UserCommand());
+			var commandResult = this.userHandler.Create(new UserCommand());
 
 			var notifications = (List<Notification>)commandResult.Data;
 
@@ -87,7 +87,7 @@ namespace ESX.Test.Case.Tests.Domain.Handlers
 		             "then should contains bad request status code in command result")]
 		public void Should_contains_bad_request_status_code_in_command_result_when_user_comand_is_invalid()
 		{
-			var commandResult = this.createUserHandler.Create(new UserCommand());
+			var commandResult = this.userHandler.Create(new UserCommand());
 
 			Assert.AreEqual(StatusCodeResult.BadRequest, commandResult.StatusCode);
 		}
@@ -98,7 +98,7 @@ namespace ESX.Test.Case.Tests.Domain.Handlers
 		             "then should return successful command result")]
 		public void Should_contains_success_status_code_in_command_result_when_user_comand_is_valid()
 		{
-			var commandResult = this.createUserHandler.Create(this.userCommand);
+			var commandResult = this.userHandler.Create(this.userCommand);
 
 			Assert.AreEqual(StatusCodeResult.Success, commandResult.StatusCode);
 		}

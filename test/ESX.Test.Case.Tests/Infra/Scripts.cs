@@ -13,7 +13,10 @@ namespace ESX.Test.Case.Tests.Infra
 							Email VARCHAR(50) NOT NULL UNIQUE,
 							PasswordHash VARCHAR(128) NOT NULL,
 							Salt VARCHAR(36) NOT NULL,
-							PRIMARY KEY (UserID))" }, 
+							PRIMARY KEY (UserID))" },
+			{ typeof(Brand), @"CREATE TABLE Brands(BrandID UNIQUEIDENTIFIER NOT NULL,
+							Name NVARCHAR(20) NOT NULL UNIQUE,
+							PRIMARY KEY (BrandID))" },
 		};
 
 		public static Dictionary<Type, string> InsertData => new Dictionary<Type, string>()
@@ -22,8 +25,9 @@ namespace ESX.Test.Case.Tests.Infra
 						VALUES ('563C0799-B5D0-4F42-846B-B76A84F134F6', 
 								'User de Teste', 
 								'teste@gmail.com', 
-								'1a88feb0c03d17df329d10ac1d2481c5e53b151a84969ee4c5a3fdb2bdb0c30f566dfd889bc95f9956b46bf001b0966ac6c23448917fbc9405f598d4804d0ab1', 
-								'768ebcc6-d559-4c44-babf-1034f78f3c69')" },
+								'1A88FEB0C03D17DF329D10AC1D2481C5E53B151A84969EE4C5A3FDB2BDB0C30F566DFD889BC95F9956B46BF001B0966AC6C23448917FBC9405F598D4804D0AB1', 
+								'768EBCC6-D559-4C44-BABF-1034F78F3C69')" },
+			{ typeof(Brand), @"INSERT INTO Brands (BrandID, Name) VALUES ('4EA766C0-4F7A-4AC8-A137-BEEA289AEE5F', 'Brand Test');" },
 		};
 	}
 }

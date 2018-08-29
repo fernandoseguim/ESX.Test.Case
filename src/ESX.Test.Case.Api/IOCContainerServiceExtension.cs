@@ -21,7 +21,9 @@ namespace ESX.Test.Case.Api
 
 			services.AddTransient<IDatabaseContext, EsxTestCaseDatabaseContext>();
 			services.AddTransient<IUserRepository, UserRepository>();
+			services.AddTransient<IBrandRepository, BrandRepository>();
 			services.AddTransient<ICommandHandler<UserCommand>, UserHandler>();
+			services.AddTransient<ICommandHandler<BrandCommand>, BrandHandler>();
 			services.AddTransient<IUserQueryHandler, UserQueryHandler>();
 
 			return services;

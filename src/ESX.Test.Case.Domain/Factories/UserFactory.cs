@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using ESX.Test.Case.Domain.Commands.Request;
+﻿using ESX.Test.Case.Domain.Commands.Request;
 using ESX.Test.Case.Domain.Entities;
 using ESX.Test.Case.Domain.ValueObjects;
-using Flunt.Notifications;
 
 namespace ESX.Test.Case.Domain.Factories
 {
