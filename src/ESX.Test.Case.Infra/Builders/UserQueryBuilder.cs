@@ -41,6 +41,12 @@ namespace ESX.Test.Case.Infra.Builders
 			return this;
 		}
 
+		public UserQueryBuilder GetAll()
+		{
+			this.query = @"select UserID as Id, Name, Email from Users";
+			return this;
+		}
+
 		public (string, DynamicParameters) Build() =>
 			(this.query, this.parameters);
 	}

@@ -1,6 +1,10 @@
-﻿using ESX.Test.Case.Domain.Commands.Request;
+﻿using System;
+using ESX.Test.Case.Domain.Commands.Request;
+using ESX.Test.Case.Domain.Commands.Response;
+using ESX.Test.Case.Domain.Repositories;
 using ESX.Test.Case.Shared.Commands;
 using Microsoft.AspNetCore.Mvc;
+using StatusCodeResult = ESX.Test.Case.Shared.Commands.StatusCodeResult;
 
 namespace ESX.Test.Case.Api.Controllers
 {
@@ -9,9 +13,32 @@ namespace ESX.Test.Case.Api.Controllers
 	public class UsersController : Controller
 	{
 		private readonly ICommandHandler<UserCommand> useCommandHandler;
+		private readonly IUserRepository repository;
 
-		public UsersController(ICommandHandler<UserCommand> useCommandHandler) 
-			=> this.useCommandHandler = useCommandHandler;
+		public UsersController(ICommandHandler<UserCommand> useCommandHandler, IUserRepository repository)
+		{
+			this.useCommandHandler = useCommandHandler;
+			this.repository = repository;
+		}
+
+		[HttpGet]
+		public IActionResult Get()
+		{
+			try
+			{
+				var result = this.repository.GetAll();
+
+				return this.Ok(result);
+			}
+			catch (Exception ex)
+			{
+				var result = new UnsuccessfulCommandResult(StatusCodeResult.InternalServerError,
+					"There was an error saving the user, please contact your system administrator.",
+					ex.Message);
+
+				return this.StatusCode((int)result.StatusCode, result);
+			}
+		}
 
 		// POST api/users
 		[HttpPost]  

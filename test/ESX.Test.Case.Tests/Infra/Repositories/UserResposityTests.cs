@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Dapper;
 using ESX.Test.Case.Domain.Entities;
 using ESX.Test.Case.Domain.Repositories;
@@ -93,6 +94,17 @@ namespace ESX.Test.Case.Tests.Infra.Repositories
 			var result = this.repository.Delete(user.Id);
 
 			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		[Description("Given that I trying delete the user, " +
+		             "when user identifier exist on database, " +
+		             "then should return true")]
+		public void Should_return_all_users_from_database()
+		{
+			var result = this.repository.GetAll();
+
+			Assert.IsTrue(result.ToList().Any());
 		}
 	}
 }

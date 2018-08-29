@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dapper;
+using ESX.Test.Case.Domain.Commands.Response;
 using ESX.Test.Case.Domain.Entities;
+using ESX.Test.Case.Domain.Queries;
 using ESX.Test.Case.Domain.Repositories;
 using ESX.Test.Case.Domain.ValueObjects;
 using ESX.Test.Case.Infra.Builders;
@@ -13,6 +16,15 @@ namespace ESX.Test.Case.Infra.Repositories
 		private readonly IDatabaseContext context;
 
 		public UserRepository(IDatabaseContext context) => this.context = context;
+
+		public IEnumerable<UserQueryResult> GetAll()
+		{
+			var (query, parameters) = new UserQueryBuilder().GetAll().Build();
+
+			var users = this.context.Connection.Query<UserQueryResult>(query);
+
+			return users;
+		}
 
 		public void Save(User user)
 		{
