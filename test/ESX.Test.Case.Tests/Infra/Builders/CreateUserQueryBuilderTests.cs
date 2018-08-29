@@ -1,8 +1,6 @@
-﻿using System;
-using ESX.Test.Case.Domain.Entities;
-using ESX.Test.Case.Domain.ValueObjects;
-using ESX.Test.Case.Infra.Builders;
+﻿using ESX.Test.Case.Infra.Builders;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 
 namespace ESX.Test.Case.Tests.Infra.Builders
