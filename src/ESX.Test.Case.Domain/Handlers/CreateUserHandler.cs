@@ -25,7 +25,7 @@ namespace ESX.Test.Case.Domain.Handlers
 
 					if(this.CheckEmail(user.Email))
 					{
-						return new UnsuccessfulCommandResult(StatusCodeResult.BadRequest,
+						return new UnsuccessfulCommandResult(StatusCodeResult.Conflict,
 							"Please, check the properties before creating the user", this.Notifications);
 					}
 

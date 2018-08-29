@@ -44,14 +44,14 @@ namespace ESX.Test.Case.Tests.Domain.Handlers
 
 		[TestMethod]
 		[Description("Given that I trying create user, " +
-		             "when check if email already exists and email exists" +
-		             "then should contains bad request status code in command result")]
-		public void Should_contains_bad_request_status_code_in_command_result_when_email_already_exists_in_database()
+		             "when email already exists" +
+					 "then should contains conflictt status code in command result")]
+		public void Should_contains_conflict_status_code_in_command_result_when_email_already_exists_in_database()
 		{
 			this.userCommand.Email = $"teste@gmail.com";
 			var commandResult = this.createUserHandler.Create(this.userCommand);
 
-			Assert.AreEqual(StatusCodeResult.BadRequest, commandResult.StatusCode);
+			Assert.AreEqual(StatusCodeResult.Conflict, commandResult.StatusCode);
 		}
 
 		[TestMethod]
