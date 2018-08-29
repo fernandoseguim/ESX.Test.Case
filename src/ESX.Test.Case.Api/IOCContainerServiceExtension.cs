@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
-using ESX.Test.Case.Domain.Commands.Request;
+﻿using ESX.Test.Case.Domain.Commands.Request;
 using ESX.Test.Case.Domain.Handlers;
 using ESX.Test.Case.Domain.Repositories;
 using ESX.Test.Case.Infra;
@@ -12,6 +6,9 @@ using ESX.Test.Case.Infra.Repositories;
 using ESX.Test.Case.Shared.Commands;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Data;
+using System.Data.SqlClient;
+using ESX.Test.Case.Domain.Queries.Response;
 
 namespace ESX.Test.Case.Api
 {
@@ -25,6 +22,7 @@ namespace ESX.Test.Case.Api
 			services.AddTransient<IDatabaseContext, EsxTestCaseDatabaseContext>();
 			services.AddTransient<IUserRepository, UserRepository>();
 			services.AddTransient<ICommandHandler<UserCommand>, UserHandler>();
+			services.AddTransient<IUserQueryHandler, UserQueryHandler>();
 
 			return services;
 		}

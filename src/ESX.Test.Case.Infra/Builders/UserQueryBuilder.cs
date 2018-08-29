@@ -5,7 +5,7 @@ using ESX.Test.Case.Domain.ValueObjects;
 
 namespace ESX.Test.Case.Infra.Builders
 {
-	public partial class UserQueryBuilder
+	public class UserQueryBuilder
 	{
 		private readonly DynamicParameters parameters;
 		private string query = "";
@@ -43,7 +43,7 @@ namespace ESX.Test.Case.Infra.Builders
 
 		public UserQueryBuilder GetAll()
 		{
-			this.query = @"select UserID as Id, Name, Email from Users";
+			this.query = @"SELECT CAST(UserID as VARCHAR(36)) as Id, Name, Email FROM Users";
 			return this;
 		}
 

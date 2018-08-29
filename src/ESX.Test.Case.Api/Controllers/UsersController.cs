@@ -1,10 +1,7 @@
-﻿using System;
-using ESX.Test.Case.Domain.Commands.Request;
-using ESX.Test.Case.Domain.Commands.Response;
-using ESX.Test.Case.Domain.Repositories;
+﻿using ESX.Test.Case.Domain.Commands.Request;
+using ESX.Test.Case.Domain.Queries.Response;
 using ESX.Test.Case.Shared.Commands;
 using Microsoft.AspNetCore.Mvc;
-using StatusCodeResult = ESX.Test.Case.Shared.Commands.StatusCodeResult;
 
 namespace ESX.Test.Case.Api.Controllers
 {
@@ -12,39 +9,28 @@ namespace ESX.Test.Case.Api.Controllers
 	[Route("api/v{version:apiVersion}/[controller]")]
 	public class UsersController : Controller
 	{
-		private readonly ICommandHandler<UserCommand> useCommandHandler;
-		private readonly IUserRepository repository;
+		private readonly ICommandHandler<UserCommand> userCommandHandler;
+		private readonly IUserQueryHandler userQueryHandler;
 
-		public UsersController(ICommandHandler<UserCommand> useCommandHandler, IUserRepository repository)
+		public UsersController(ICommandHandler<UserCommand> userCommandHandler, IUserQueryHandler userQueryHandler)
 		{
-			this.useCommandHandler = useCommandHandler;
-			this.repository = repository;
+			this.userCommandHandler = userCommandHandler;
+			this.userQueryHandler = userQueryHandler;
 		}
 
 		[HttpGet]
 		public IActionResult Get()
 		{
-			try
-			{
-				var result = this.repository.GetAll();
+			var result = this.userQueryHandler.GetAll();
 
-				return this.Ok(result);
-			}
-			catch (Exception ex)
-			{
-				var result = new UnsuccessfulCommandResult(StatusCodeResult.InternalServerError,
-					"There was an error saving the user, please contact your system administrator.",
-					ex.Message);
-
-				return this.StatusCode((int)result.StatusCode, result);
-			}
+			return this.StatusCode((int)result.StatusCode, result);
 		}
 
 		// POST api/users
 		[HttpPost]  
 		public IActionResult Post([FromBody] UserCommand userCommand)
 		{
-			var result = this.useCommandHandler.Create(userCommand);
+			var result = this.userCommandHandler.Create(userCommand);
 			
 			return this.StatusCode((int)result.StatusCode, result);
 		}
@@ -52,7 +38,7 @@ namespace ESX.Test.Case.Api.Controllers
 		[HttpDelete("{id}")]
 		public IActionResult Delete([FromRoute] string id)
 		{
-			var result = this.useCommandHandler.Delete(id);
+			var result = this.userCommandHandler.Delete(id);
 
 			return this.StatusCode((int)result.StatusCode, result);
 		}
