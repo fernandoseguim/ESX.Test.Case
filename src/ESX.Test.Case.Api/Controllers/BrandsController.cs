@@ -1,4 +1,5 @@
 ﻿using ESX.Test.Case.Domain.Commands.Request;
+using ESX.Test.Case.Domain.Handlers;
 using ESX.Test.Case.Domain.Queries.Response;
 using ESX.Test.Case.Shared.Commands;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,9 @@ namespace ESX.Test.Case.Api.Controllers
 	public class BrandsController : Controller
 	{
 		private readonly ICommandHandler<BrandCommand> brandCommandHandler;
-		private readonly IUserQueryHandler brandQueryHandler;
+		private readonly IBrandQueryHandler brandQueryHandler;
 
-		public BrandsController(ICommandHandler<BrandCommand> brandCommandHandler, IUserQueryHandler brandQueryHandler)
+		public BrandsController(ICommandHandler<BrandCommand> brandCommandHandler, IBrandQueryHandler brandQueryHandler)
 		{
 			this.brandCommandHandler = brandCommandHandler;
 			this.brandQueryHandler = brandQueryHandler;
@@ -22,6 +23,14 @@ namespace ESX.Test.Case.Api.Controllers
 		public IActionResult Get()
 		{
 			var result = this.brandQueryHandler.GetAll();
+
+			return this.StatusCode((int)result.StatusCode, result);
+		}
+
+		[HttpGet("{id}")]
+		public IActionResult Get(string id)
+		{
+			var result = this.brandQueryHandler.GetById(id);
 
 			return this.StatusCode((int)result.StatusCode, result);
 		}

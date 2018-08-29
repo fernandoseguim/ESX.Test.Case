@@ -25,6 +25,7 @@ namespace ESX.Test.Case.Api
 			services.AddTransient<ICommandHandler<UserCommand>, UserHandler>();
 			services.AddTransient<ICommandHandler<BrandCommand>, BrandHandler>();
 			services.AddTransient<IUserQueryHandler, UserQueryHandler>();
+			services.AddTransient<IBrandQueryHandler, BrandQueryHandler>();
 
 			return services;
 		}

@@ -1,4 +1,5 @@
 ﻿using ESX.Test.Case.Domain.Commands.Request;
+using ESX.Test.Case.Domain.Handlers;
 using ESX.Test.Case.Domain.Queries.Response;
 using ESX.Test.Case.Shared.Commands;
 using Microsoft.AspNetCore.Mvc;
