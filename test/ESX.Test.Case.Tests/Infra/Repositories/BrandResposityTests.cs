@@ -122,7 +122,7 @@ namespace ESX.Test.Case.Tests.Infra.Repositories
 		             "then should return null")]
 		public void Should_return_null_when_get_by_id_and_not_exist_brand_in_database()
 		{
-			var result = this.repository.GetById(new Guid());
+			var result = this.repository.GetById(Guid.NewGuid());
 
 			Assert.IsNull(result);
 		}
