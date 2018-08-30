@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using ESX.Test.Case.Domain.Entities;
 using System;
+using ESX.Test.Case.Domain.Commands.Request;
 
 namespace ESX.Test.Case.Infra.Builders
 {
@@ -23,6 +24,14 @@ namespace ESX.Test.Case.Infra.Builders
 			this.query = @"INSERT INTO Brands (BrandID, Name) VALUES(@BrandID, @Name)";
 			this.parameters.Add("BrandID", brand.Id);
 			this.parameters.Add("Name", brand.Name);
+			return this;
+		}
+
+		public BrandQueryBuilder UpdateBrand(Guid id, BrandCommand brandCommand)
+		{
+			this.query = @"UPDATE Brands SET Name = @Name WHERE BrandID = @BrandID";
+			this.parameters.Add("BrandID", id);
+			this.parameters.Add("Name", brandCommand.Name);
 			return this;
 		}
 

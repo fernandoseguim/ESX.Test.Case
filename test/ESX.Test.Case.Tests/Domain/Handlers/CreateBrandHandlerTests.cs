@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ESX.Test.Case.Domain.Commands.Request;
+using ESX.Test.Case.Domain.Entities;
 using ESX.Test.Case.Domain.Handlers;
 using ESX.Test.Case.Domain.Repositories;
 using ESX.Test.Case.Domain.ValueObjects;
@@ -15,7 +16,7 @@ namespace ESX.Test.Case.Tests.Domain.Handlers
 	[TestClass]
 	public partial class BrandHandlerTests : UnitTestBase
 	{
-		private const string NOT_FOUND_BRAND_ID = "03A17D27-C260-4DE9-9B4E-11474CD9AC88";
+		private const string NOT_FOUND_BRAND_ID = "03A17D27-C260-4DE9-9B4E-11474CD9AC88"; 
 		private readonly IBrandRepository repository;
 		private readonly ICommandHandler<BrandCommand> brandHandler;
 		private readonly BrandCommand brandCommand;
@@ -31,11 +32,13 @@ namespace ESX.Test.Case.Tests.Domain.Handlers
 		public void Setup()
 		{
 			this.brandCommand.Name = this.MockString();
-			
 			this.repository.CheckBrand(Arg.Is<string>(name => name.Equals(this.brandCommand.Name))).Returns(true);
 			this.repository.CheckBrand(Arg.Is<string>(name => !name.Equals(this.brandCommand.Name))).Returns(false);
 			this.repository.Delete(Arg.Any<Guid>()).Returns(true);
 			this.repository.Delete(Arg.Is<Guid>(id => id.Equals(new Guid(NOT_FOUND_BRAND_ID)))).Returns(false);
+
+			this.repository.Update(Arg.Any<Guid>(), Arg.Any<BrandCommand>()).Returns(true);
+			this.repository.Update(Arg.Is<Guid>(id => id.Equals(new Guid(NOT_FOUND_BRAND_ID))), Arg.Any<BrandCommand>()).Returns(false);
 		}
 
 		[TestMethod]

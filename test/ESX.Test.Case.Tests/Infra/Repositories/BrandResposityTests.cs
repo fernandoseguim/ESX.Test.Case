@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using Dapper;
+﻿using Dapper;
 using ESX.Test.Case.Domain.Entities;
 using ESX.Test.Case.Domain.Repositories;
-using ESX.Test.Case.Domain.ValueObjects;
 using ESX.Test.Case.Infra.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
+using System.Linq;
+using ESX.Test.Case.Domain.Commands.Request;
 
 namespace ESX.Test.Case.Tests.Infra.Repositories
 {
@@ -14,27 +14,44 @@ namespace ESX.Test.Case.Tests.Infra.Repositories
 	public class BrandResposityTests : RepositoryTests<Brand>
 	{
 		private readonly IBrandRepository repository;
+		private readonly Brand brand;
 
 		public BrandResposityTests()
 		{
 			this.repository = new BrandRepository(this.Context);
+			this.brand = new Brand(MockString());
 		}
 
 		[TestMethod]
 		[Description("Given that I has a new brand, " +
 					 "when trying to save a new brand in the database, " +
 					 "then should save new brand in the users table")]
-		public void Should_save_the_new_user_in_the_users_table()
+		public void Should_save_the_new_brand_in_the_brands_table()
 		{
-			var brand = new Brand(MockString());
-
-			this.repository.Save(brand);
+			this.repository.Save(this.brand);
 
 			this.Context
 				.Received()
 				.Connection
 				.Execute(
 					Arg.Is<string>(query => query.Contains("INSERT INTO Brands (BrandID, Name)")),
+					Arg.Any<object>());
+		}
+
+		[TestMethod]
+		[Description("Given that I have a valid brand name, " +
+					 "when trying to update a brand in the database, " +
+		             "then should udate brand in the brands table")]
+		public void Should_update_the_brand_in_the_brands_table()
+		{
+			this.repository.Save(this.brand);
+			this.repository.Update(this.brand.Id, new BrandCommand { Name = MockString() });
+
+			this.Context
+				.Received()
+				.Connection
+				.Execute(
+					Arg.Is<string>(query => query.Contains("UPDATE Brands SET Name")),
 					Arg.Any<object>());
 		}
 

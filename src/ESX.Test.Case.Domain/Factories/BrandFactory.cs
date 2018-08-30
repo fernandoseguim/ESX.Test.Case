@@ -1,4 +1,5 @@
-﻿using ESX.Test.Case.Domain.Commands.Request;
+﻿using System;
+using ESX.Test.Case.Domain.Commands.Request;
 using ESX.Test.Case.Domain.Entities;
 
 namespace ESX.Test.Case.Domain.Factories

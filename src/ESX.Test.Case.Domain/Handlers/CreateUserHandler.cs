@@ -33,7 +33,7 @@ namespace ESX.Test.Case.Domain.Handlers
 
 					return new SuccessfulCommandResult("User was saved with successful", new
 					{
-						UserId = user.Id,
+						Id = user.Id,
 						Name = user.Name.ToString(),
 						Email = user.Email.ToString()
 					});
@@ -48,6 +48,11 @@ namespace ESX.Test.Case.Domain.Handlers
 					"There was an error saving the user, please contact your system administrator.",
 					ex.Message);
 			}
+		}
+
+		public ICommandResult Update(string id, UserCommand command)
+		{
+			throw new NotImplementedException();
 		}
 
 		private bool CheckEmail(Email email)

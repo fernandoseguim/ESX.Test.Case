@@ -32,7 +32,7 @@ namespace ESX.Test.Case.Domain.Handlers
 
 					return new SuccessfulCommandResult("Brand was saved with successful", new
 					{
-						UserId = brand.Id,
+						id = brand.Id,
 						Name = brand.Name,
 					});
 				}

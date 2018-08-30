@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dapper;
+using ESX.Test.Case.Domain.Commands.Request;
 using ESX.Test.Case.Domain.Entities;
 using ESX.Test.Case.Domain.Queries.Response;
 using ESX.Test.Case.Domain.Repositories;
@@ -39,6 +40,14 @@ namespace ESX.Test.Case.Infra.Repositories
 
 			var result = this.context.Connection.Query<bool>(query, parameters).FirstOrDefault();
 			return result;
+		}
+
+		public bool Update(Guid id, BrandCommand brandCommand)
+		{
+			var (query, parameters) = new BrandQueryBuilder().UpdateBrand(id, brandCommand).Build();
+
+			var result = this.context.Connection.Execute(query, parameters);
+			return Convert.ToBoolean(result);
 		}
 
 		public void Save(Brand brand)

@@ -43,6 +43,14 @@ namespace ESX.Test.Case.Api.Controllers
 			return this.StatusCode((int)result.StatusCode, result);
 		}
 
+		[HttpPut("{id}")]
+		public IActionResult Put(string id, [FromBody] BrandCommand brandCommand)
+		{
+			var result = this.brandCommandHandler.Update(id, brandCommand);
+
+			return this.StatusCode((int)result.StatusCode, result);
+		}
+
 		[HttpDelete("{id}")]
 		public IActionResult Delete([FromRoute] string id)
 		{
