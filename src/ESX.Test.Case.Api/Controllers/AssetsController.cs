@@ -1,10 +1,12 @@
 ﻿using ESX.Test.Case.Domain.Commands.Request;
 using ESX.Test.Case.Domain.Handlers;
 using ESX.Test.Case.Shared.Commands;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ESX.Test.Case.Api.Controllers
 {
+	[Authorize]
 	[ApiVersion("1.0")]
 	[Route("api/v{version:apiVersion}/[controller]")]
 	public class AssetsController : Controller

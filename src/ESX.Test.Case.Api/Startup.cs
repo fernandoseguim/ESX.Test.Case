@@ -18,8 +18,8 @@ namespace ESX.Test.Case.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddIOCConteiner(this.Configuration);
-			
-			services.AddMvc().AddJsonOptions(options 
+
+			services.AddMvc().AddJsonOptions(options
 				=> options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore);
 
 			services.AddGzipCompression();
@@ -32,6 +32,12 @@ namespace ESX.Test.Case.Api
 
 			services.AddApiVersioning();
 
+			services.AddAuthentication("Bearer").AddIdentityServerAuthentication(options =>
+			{
+				options.RequireHttpsMetadata = false;
+				options.Authority = "http://localhost:5000";
+				options.ApiName = "ESX.Case.Test";
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +47,7 @@ namespace ESX.Test.Case.Api
 			{
 				app.UseDeveloperExceptionPage();
 			}
-			
+
 			app.UseElmahIo();
 			app.UseResponseCompression();
 			app.UseMvc();
