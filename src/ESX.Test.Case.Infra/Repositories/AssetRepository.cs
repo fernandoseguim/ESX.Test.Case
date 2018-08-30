@@ -36,7 +36,7 @@ namespace ESX.Test.Case.Infra.Repositories
 		{
 			var (query, parameters) = new AssetQueryBuilder().GetAllByBrandId(brandId).Build();
 
-			var assets = this.context.Connection.Query<AssetQueryResult>(query);
+			var assets = this.context.Connection.Query<AssetQueryResult>(query, parameters);
 
 			return assets;
 		}

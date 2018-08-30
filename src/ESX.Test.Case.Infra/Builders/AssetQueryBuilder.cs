@@ -58,8 +58,7 @@ namespace ESX.Test.Case.Infra.Builders
 
 		public AssetQueryBuilder GetAllByBrandId(Guid brandId)
 		{
-			this.query = @"SELECT CAST(AssetID as VARCHAR(36)) as Id, Name, Description, Registry 
-						FROM Assets WHERE BrandID = @BrandID";
+			this.query = @"SELECT CAST(AssetID as VARCHAR(36)) as Id, Name, Description, Registry FROM Assets WHERE BrandID = @BrandID";
 			this.parameters.Add("BrandID", brandId);
 			return this;
 		}

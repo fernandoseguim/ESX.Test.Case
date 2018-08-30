@@ -12,11 +12,15 @@ namespace ESX.Test.Case.Api.Controllers
 	{
 		private readonly ICommandHandler<BrandCommand> brandCommandHandler;
 		private readonly IBrandQueryHandler brandQueryHandler;
+		private readonly IAssetQueryHandler assetQueryHandler;
 
-		public BrandsController(ICommandHandler<BrandCommand> brandCommandHandler, IBrandQueryHandler brandQueryHandler)
+		public BrandsController(ICommandHandler<BrandCommand> brandCommandHandler, 
+			IBrandQueryHandler brandQueryHandler, 
+			IAssetQueryHandler assetQueryHandler)
 		{
 			this.brandCommandHandler = brandCommandHandler;
 			this.brandQueryHandler = brandQueryHandler;
+			this.assetQueryHandler = assetQueryHandler;
 		}
 
 		[HttpGet]
@@ -31,6 +35,14 @@ namespace ESX.Test.Case.Api.Controllers
 		public IActionResult Get(string id)
 		{
 			var result = this.brandQueryHandler.GetById(id);
+
+			return this.StatusCode((int)result.StatusCode, result);
+		}
+
+		[HttpGet("{id}/assets")]
+		public IActionResult GetAssetsByBrandId(string id)
+		{
+			var result = this.assetQueryHandler.GetAllByBrandId(id);
 
 			return this.StatusCode((int)result.StatusCode, result);
 		}
