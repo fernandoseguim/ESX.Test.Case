@@ -22,10 +22,13 @@ namespace ESX.Test.Case.Api
 			services.AddTransient<IDatabaseContext, EsxTestCaseDatabaseContext>();
 			services.AddTransient<IUserRepository, UserRepository>();
 			services.AddTransient<IBrandRepository, BrandRepository>();
+			services.AddTransient<IAssetRepository, AssetRepository>();
 			services.AddTransient<ICommandHandler<UserCommand>, UserHandler>();
 			services.AddTransient<ICommandHandler<BrandCommand>, BrandHandler>();
+			services.AddTransient<ICommandHandler<AssetCommand>, AssetHandler>();
 			services.AddTransient<IUserQueryHandler, UserQueryHandler>();
 			services.AddTransient<IBrandQueryHandler, BrandQueryHandler>();
+			services.AddTransient<IAssetQueryHandler, AssetQueryHandler>();
 
 			return services;
 		}

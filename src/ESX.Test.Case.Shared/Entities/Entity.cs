@@ -7,6 +7,6 @@ namespace ESX.Test.Case.Shared.Entities
 	{
 		protected Entity() => this.Id = Guid.NewGuid();
 
-		public Guid Id { get; }
+		public Guid Id { get; protected set; }
 	}
 }
