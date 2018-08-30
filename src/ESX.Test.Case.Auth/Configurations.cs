@@ -7,7 +7,7 @@ namespace ESX.Test.Case.Auth
 	{
 		public static IEnumerable<ApiResource> GetApiResources()
 		{
-			return new List<ApiResource> { new ApiResource("ESX.Test.Case", "ESX Test Case") };
+			return new List<ApiResource> { new ApiResource("ESX.Test.Case", "ESX Test Case"), new ApiResource("SampleApi", "SampleApi") };
 		}
 		public static IEnumerable<Client> GetClients()
 		{
@@ -16,7 +16,7 @@ namespace ESX.Test.Case.Auth
 					ClientId = "DD7D1B78-126E-4DD5-A429-BB61C6BCAA20",
 					AllowedGrantTypes = GrantTypes.ClientCredentials,
 					ClientSecrets = new List<Secret> { new Secret("da39a3ee5e6b4b0d3255bfef95601890afd80709".Sha256()) },
-					AllowedScopes = { "ESX.Test.Case" }
+					AllowedScopes = { "ESX.Test.Case", "SampleApi" }
 				}
 			};
 		}
