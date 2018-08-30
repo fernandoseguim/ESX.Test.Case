@@ -1,4 +1,4 @@
-# ESX.Test.Case &middot; &middot; [![Build status](https://seguimit.visualstudio.com/ESX.Test.Case/_apis/build/status/ESX.Test.Case-ASP.NET%20Core-CI)](https://seguimit.visualstudio.com/ESX.Test.Case/_build/latest?definitionId=-1)
+# ESX.Test.Case &middot; [![Build status](https://seguimit.visualstudio.com/ESX.Test.Case/_apis/build/status/ESX.Test.Case-ASP.NET%20Core-CI)](https://seguimit.visualstudio.com/ESX.Test.Case/_build/latest?definitionId=-1)
 
 To restore and build project
 ```
