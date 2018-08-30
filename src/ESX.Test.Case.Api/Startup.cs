@@ -36,7 +36,7 @@ namespace ESX.Test.Case.Api
 			{
 				options.RequireHttpsMetadata = false;
 				options.Authority = "http://localhost:5000";
-				options.ApiName = "ESX.Case.Test";
+				options.ApiName = "ESX.Test.Case";
 			});
 		}
 
@@ -51,6 +51,7 @@ namespace ESX.Test.Case.Api
 			app.UseElmahIo();
 			app.UseResponseCompression();
 			app.UseMvc();
+			app.UseAuthentication();
 		}
 	}
 }

@@ -33,11 +33,7 @@ namespace ESX.Test.Case.Auth
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-
+			
 			app.UseIdentityServer();
 
 			app.UseStaticFiles();
